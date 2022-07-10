@@ -48,34 +48,47 @@ function render(data, parentPath) {
 
         let elemName = data.path + "/" + e.name;
 
-        document.querySelector(".fileManager__content").innerHTML += 
-            `
-            <li class="fileManager__item" style="--i:${counter}">
-                <div title="${isDirectoryOrFile()} name" class="fileManager__item__name" onclick="getFiles('${elemName}', '${parentName}')">
-                    <i class="fa-solid fa-${isDirectoryOrFile()}"></i>
-                    ${e.name.toUpperCase()}
-                </div>
+        
 
-                <div class="fileManager__item__tools">
-                    <div title="download" class="fileManager__item__downloadButton" >
-                        <a href="/download/?path=${elemName}"><i class="fa-solid fa-download"></i></a>
-                    </div>
-                    <div title="copy" class="fileManager__item__copyButton" onclick="copyFile('${elemName}', '${parentName}', '${parentPath}')">
-                        <i class="fa-solid fa-copy"></i>
-                    </div>
-                    <div title="delete" class="fileManager__item__deleteButton" onclick="deleteTarget('${elemName}', '${parentName}', '${parentPath}')">
-                        <i class="fa-solid fa-trash-can"></i>
-                    </div>
-                    <div title="rename" class="fileManager__item__renameButton" onclick="renameTarget('${elemName}', '${parentName}', '${parentPath}')">
-                        <i class="fa-solid fa-pen"></i>
-                    </div>
+        let renderDownloadAndCopyIconsForFiles = 
+        `
+        <div title="download" class="fileManager__item__downloadButton" >
+        <a href="/download/?path=${elemName}"><i class="fa-solid fa-download"></i></a>
+        </div>
+        <div title="copy" class="fileManager__item__copyButton" onclick="copyFile('${elemName}', '${parentName}', '${parentPath}')">
+        <i class="fa-solid fa-copy"></i>
+        </div>
+        `
+
+        document.querySelector(".fileManager__content").innerHTML += 
+        `
+        <li class="fileManager__item" style="--i:${counter}">
+            <div title="${isDirectoryOrFile()} name" class="fileManager__item__name" onclick="getFiles('${elemName}', '${parentName}')">
+                <i class="fa-solid fa-${isDirectoryOrFile()}"></i>
+                ${e.name.toUpperCase()}
+            </div>
+
+            <div class="fileManager__item__tools">
+                ${ e.isDir ? "" : renderDownloadAndCopyIconsForFiles }
+                <div title="delete" class="fileManager__item__deleteButton" onclick="deleteTarget('${elemName}', '${parentName}', '${parentPath}')">
+                    <i class="fa-solid fa-trash-can"></i>
                 </div>
-            </li>
-            `
-        }
-    )
+                <div title="rename" class="fileManager__item__renameButton" onclick="renameTarget('${elemName}', '${parentName}', '${parentPath}')">
+                    <i class="fa-solid fa-pen"></i>
+                </div>
+            </div>
+        </li>
+        `
+    })
 }
 
+
+/* <div title="download" class="fileManager__item__downloadButton" >
+<a href="/download/?path=${elemName}"><i class="fa-solid fa-download"></i></a>
+</div>
+<div title="copy" class="fileManager__item__copyButton" onclick="copyFile('${elemName}', '${parentName}', '${parentPath}')">
+<i class="fa-solid fa-copy"></i>
+</div> */
 
 
 const url = "http://localhost:8000/";
