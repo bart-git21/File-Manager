@@ -128,8 +128,6 @@ async function copyFile(target, parentPath, levelUpPath) {
 }
 
 async function createDirectory(path, parentPath) {
-    console.log("path", path);
-    console.log("levelUpPath", parentPath);
     let newDirName = prompt("Write a file name:", "");
     if (!newDirName) return;
     try {
