@@ -10,6 +10,8 @@
 
 body {
     font-size: 20px;
+    color: darkslategrey;
+    background-color: snow;
 }
 
 main {
@@ -20,15 +22,23 @@ main {
     align-items: center;
 }
 .fileManager__wrapper {
-    border: 1px solid black;
     border-radius: 10px;
     margin: 20px;
     padding: 20px;
-    width: 40vw;
+    width: 30vw;
 }
 
-.paragraph-wrapper {
+.buttons-wrapper {
     margin-bottom: 20px;
+    display: flex;
+}
+
+.buttons-wrapper h3 {
+    white-space: nowrap;
+}
+.buttons-wrapper span {
+    margin-left: 10px;
+    font-size: 110%;
 }
 
 /* ================================ header of file manager ==================*/
@@ -49,10 +59,11 @@ main {
 
 .fileManager__levelUpButton {
     background-color: white;
+    border: 1px solid white;
     padding: 5px 20px;
     border-radius: 10px;
     box-shadow: inset 2px 2px 3px white,
-        1px 1px 1px black;
+        2px 2px 3px black;
 }
 .fileManager__levelUpButton i {
     color: red;
@@ -69,14 +80,29 @@ main {
 }
 
 
+.fileManager__createNewDirButton {
+    color: red;
+    border: 1px solid white;
+    box-shadow: inset 2px 2px 3px white,
+        2px 2px 3px black;
+    padding: 5px 20px;
+    border-radius: 10px;
+    margin: 0 auto;
+}
+
 /* ===================================== each item in the file manager ===========*/
+
+.fileManager__content {
+    box-shadow: inset 2px 2px 3px white,
+        2px 2px 3px black;
+    border-radius: 10px;
+}
 .fileManager__item {
     margin: 0 auto;
     padding: 0 10px;
     display: flex;
     justify-content: space-between;
     position: relative;
-    width: 600px;
     height: 60px;
     transform: rotateX(90deg);
     animation: rotateX-90 .3s linear forwards;
@@ -92,10 +118,12 @@ main {
         transform: rotateX(0);
     }
 }
+.fileManager__item:nth-child(even) {
+    background-color: seashell;
+}
 .fileManager__item:hover {
     cursor: pointer;
     background-color: antiquewhite;
-    color: red;
     font-weight: 600;
 }
 
@@ -145,7 +173,7 @@ i {
 .fa-trash-can:hover,
 .fa-download:hover,
 .fa-copy:hover,
-.fileManager__item__renameButton:hover {
+.fa-pen:hover {
     color: red;
 }
 .button:hover {
@@ -173,14 +201,4 @@ i {
     100% {
         transform: rotateY(270deg);
     }
-}
-
-.fileManager__item__renameButton {
-    color: red;
-    border: 1px solid white;
-    box-shadow: inset 2px 2px 3px white,
-        2px 2px 3px black;
-    padding: 5px 20px;
-    border-radius: 10px;
-    display: inline-block;
 }

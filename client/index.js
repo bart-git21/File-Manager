@@ -12,8 +12,8 @@ function render(data, parentPath) {
     document.querySelector(".fileManager__header").innerHTML = null;
     document.querySelector(".fileManager__header").innerHTML += 
         `
-        <div class="paragraph-wrapper">
-            <span>You are here: </span>
+        <div class="buttons-wrapper">
+            <h3>You are here: </h3>
             <span class="fileManager__text-underline">${data.path === "" ? "Home" : data.path}</span>
         </div>
         `
@@ -24,20 +24,14 @@ function render(data, parentPath) {
     // if (data.path) {
     document.querySelector(".fileManager__header").innerHTML += 
         `
-        <div class="paragraph-wrapper">
-            <span>Level up: </span>
-            <button class="button fileManager__levelUpButton" onclick="getFiles('${parentPath}', '${levelUpPath}')">
+        <div class="buttons-wrapper">
+            <div class="button fileManager__createNewDirButton" onclick="createDirectory('${data.path}', '${parentPath}')">Create a new directory</div>
+            <button title="Level Up" class="button fileManager__levelUpButton" onclick="getFiles('${parentPath}', '${levelUpPath}')">
                 <i class="fa-solid fa-turn-up"></i>
             </button>
         </div>
         `;
     // }
-    document.querySelector(".fileManager__header").innerHTML += 
-    `
-    <div class="paragraph-wrapper">
-        <div class="button fileManager__item__renameButton" onclick="createDirectory('${data.path}', '${parentPath}')">Create a new directory</div>
-    </div>
-    `
 
     let parentName = data.path || "";
 
@@ -72,7 +66,9 @@ function render(data, parentPath) {
                     <div title="delete" class="fileManager__item__deleteButton" onclick="deleteTarget('${elemName}', '${parentName}', '${parentPath}')">
                         <i class="fa-solid fa-trash-can"></i>
                     </div>
-                    <div title="rename" class="button fileManager__item__renameButton" onclick="renameTarget('${elemName}', '${parentName}', '${parentPath}')">rename</div>
+                    <div title="rename" class="fileManager__item__renameButton" onclick="renameTarget('${elemName}', '${parentName}', '${parentPath}')">
+                        <i class="fa-solid fa-pen"></i>
+                    </div>
                 </div>
             </li>
             `
