@@ -6,6 +6,9 @@
 ## Usage:
 ```
 $ npm run start
+```
+Run with nodemon:
+```
 $ npm run dev
 ```
 
