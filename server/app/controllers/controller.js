@@ -40,7 +40,10 @@ const getFiles = (req, res)=> {
 const renameTarget = (req, res) => {
 
     const oldPath = basePathToFiles + req.query.path;
-    let newPath = basePathToFiles + req.query.parentPath + "/" + req.query.newName
+    let newPath = basePathToFiles + req.query.parentPath + "/" + req.query.newName;
+
+    // если файл с таким именем уже существует:
+    if (fs.existsSync( basePathToFiles + req.query.parentPath )) newPath += " - copy";
     
     const description = req.query.path.split(".").pop();
     isDirectory(oldPath) ? newPath : (newPath += "." + description);
