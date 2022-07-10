@@ -1,6 +1,6 @@
 ﻿# File Manager project
 
-### localehost:8000
+### localhost:8000
 
 
 ## Usage:
