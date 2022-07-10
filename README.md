@@ -4,8 +4,8 @@
 ## Usage:
 ```
 $ npm run start
-```
 ### localhost:8000
+```
 Run with nodemon:
 ```
 $ npm run dev
