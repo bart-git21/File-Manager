@@ -20,13 +20,14 @@ const getFiles = (req, res)=> {
     if(isDirectory(resultPath)) {
         let files = fs.readdirSync(resultPath).map(elemName => {
             const isDir = isDirectory(resultPath + "/" + elemName);
-            // const stat = fs.lstatSync(resultPath + "/" + elemName);
+
+            // собираем статистику
+            const stat = fs.lstatSync(resultPath + "/" + elemName);
             return {
                 name: elemName,
                 isDir: isDir,
-                // size: stat.size,
-                // birthtime: stat.birthtime,
-                // stat: stat,
+                size: stat.size,
+                birthtime: stat.birthtime,
             }
         })
         res.status(200).json({
@@ -117,7 +118,7 @@ const download = (req, res) => {
     const filePath = path.join(__dirname, '/../../files', name);
     res.download( filePath, name, function (err) {
         if (err) throw err;
-        console.log('Directory is created!');
+        console.log('The download was successful!');
       });
 }
 

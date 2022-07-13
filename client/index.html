@@ -17,21 +17,26 @@
     => Просматривать содержимое папок 
 -->
 
-
-
     <main>
         <h1>File Manager</h1>
         <h4>You can rename, copy, delete and download files</h4>
         <h4>You can open, rename and delete directories</h4>
         <h4>You can create a new directory in the current directory</h4>
-            <div class="fileManager__wrapper">
-                <div class="fileManager__header"></div>
-                <ul class="fileManager__content"></ul>
-            </div>
+        <div class="fileManager__wrapper">
+            <div class="fileManager__header"></div>
+            <table class="fileManager__table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Size, kb</th>
+                        <th>File creation date</th>
+                    </tr>
+                </thead>
+                <tbody class="fileManager__table__body"></tbody>
+            </table>
+        </div>
     </main>
     
-
-    <!-- <a target="_blank" href="https://icons8.com/icon/WWogVNJDSfZ5/folder">icons</a> by <a target="_blank" href="https://icons8.com">Icons8</a> -->
 </body>
 <script src="index.js"></script>
 

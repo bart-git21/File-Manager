@@ -1,0 +1,20 @@
+
+
+table {
+    width: 100%;
+    text-align: center;
+    cursor: pointer;  
+    
+  border-collapse: collapse;
+  border-radius: 1em;
+  overflow: hidden; 
+}
+
+thead {
+    background-color: antiquewhite;
+    height: 60px;
+}
+
+tr {
+  border-top: 2px solid white; 
+}

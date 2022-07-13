@@ -1,3 +1,14 @@
+
+
+let fileManager__table = document.querySelector(".fileManager__table");
+let fileManager__table__body = document.querySelector(".fileManager__table__body");
+function createCell() {
+    return cell = document.createElement("td");;
+}
+function isDirectoryOrFile(elem) {
+    return elem.isDir ? "folder" : "file";
+}
+
 async function getFiles(userPath="", parentPath="") {
     const url = "http://localhost:8000/getFiles/?path=";
     try {
@@ -10,6 +21,8 @@ getFiles();
 
 function render(data, parentPath) {
     document.querySelector(".fileManager__header").innerHTML = null;
+
+    // ===================================== current folder path
     document.querySelector(".fileManager__header").innerHTML += 
         `
         <div class="buttons-wrapper">
@@ -18,6 +31,7 @@ function render(data, parentPath) {
         </div>
         `
 
+    // ===================================== folder maker & level up button
     let levelUpPath = parentPath.split("/");
     levelUpPath.pop();
     levelUpPath = levelUpPath.join("/");
@@ -33,23 +47,17 @@ function render(data, parentPath) {
         `;
     // }
 
+    // ===================================== folders list
     let parentName = data.path || "";
-
-    document.querySelector(".fileManager__content").innerHTML = null;
-
-    let counter = 0;
+    let counter = 0; // counter нужен для определения размера delay в анимации отрисовки
+    fileManager__table__body.innerHTML = null;
     data.files.map(e => {
         counter++;
-        // const birthtime = new Date(e.birthtime).toLocaleDateString();
-
-        function isDirectoryOrFile() {
-            return e.isDir ? "folder" : "file";
-        }
-
         let elemName = data.path + "/" + e.name;
-
+        const size = Math.ceil( e.size / 1000 ) || ""; // kb
+        const birthtime = new Date(e.birthtime).toLocaleDateString();
         
-
+        // если очередной элемент является файлом (не папкой) - ему добавляются иконка загрузки и иконка копирования
         let renderDownloadAndCopyIconsForFiles = 
         `
         <div title="download" class="fileManager__item__downloadButton" >
@@ -60,35 +68,48 @@ function render(data, parentPath) {
         </div>
         `
 
-        document.querySelector(".fileManager__content").innerHTML += 
+        const fileManager__item = 
         `
-        <li class="fileManager__item" style="--i:${counter}">
-            <div title="${isDirectoryOrFile()} name" class="fileManager__item__name" onclick="getFiles('${elemName}', '${parentName}')">
-                <i class="fa-solid fa-${isDirectoryOrFile()}"></i>
-                ${e.name.toUpperCase()}
-            </div>
+        <div title="${isDirectoryOrFile(e)} name" class="fileManager__item__name" onclick="getFiles('${elemName}', '${parentName}')">
+            <i class="fa-solid fa-${isDirectoryOrFile(e)}"></i>
+            ${e.name.toUpperCase()}
+        </div>
 
-            <div class="fileManager__item__tools">
-                ${ e.isDir ? "" : renderDownloadAndCopyIconsForFiles }
-                <div title="delete" class="fileManager__item__deleteButton" onclick="deleteTarget('${elemName}', '${parentName}', '${parentPath}')">
-                    <i class="fa-solid fa-trash-can"></i>
-                </div>
-                <div title="rename" class="fileManager__item__renameButton" onclick="renameTarget('${elemName}', '${parentName}', '${parentPath}')">
-                    <i class="fa-solid fa-pen"></i>
-                </div>
+        <div class="fileManager__item__tools">
+            ${ e.isDir ? "" : renderDownloadAndCopyIconsForFiles }
+            <div title="delete" class="fileManager__item__deleteButton" onclick="deleteTarget('${elemName}', '${parentName}', '${parentPath}')">
+                <i class="fa-solid fa-trash-can"></i>
             </div>
-        </li>
+            <div title="rename" class="fileManager__item__renameButton" onclick="renameTarget('${elemName}', '${parentName}', '${parentPath}')">
+                <i class="fa-solid fa-pen"></i>
+            </div>
+        </div>
         `
+
+        const row = document.createElement("tr");
+        const cell_0 = createCell();
+        cell_0.setAttribute("class", "fileManager__item__nameWrapper");
+        cell_0.innerHTML = fileManager__item;
+        const cell_1 = createCell();
+        cell_1.innerHTML = size;
+        cell_1.addEventListener("click", () => {getFiles(elemName, parentName)});
+        const cell_2 = createCell();
+        cell_2.innerHTML = birthtime;
+        cell_2.addEventListener("click", () => {getFiles(elemName, parentName)});
+        
+        row.setAttribute("class", "fileManager__item")
+        row.setAttribute("style", `--i:${counter}`)
+        row.appendChild(cell_0);
+        row.appendChild(cell_1);
+        row.appendChild(cell_2);
+
+        fileManager__table__body.appendChild(row);
     })
 }
 
-
-/* <div title="download" class="fileManager__item__downloadButton" >
-<a href="/download/?path=${elemName}"><i class="fa-solid fa-download"></i></a>
-</div>
-<div title="copy" class="fileManager__item__copyButton" onclick="copyFile('${elemName}', '${parentName}', '${parentPath}')">
-<i class="fa-solid fa-copy"></i>
-</div> */
+function foo() {
+    console.log(11);
+}
 
 
 const url = "http://localhost:8000/";
@@ -138,16 +159,3 @@ async function createDirectory(path, parentPath) {
         .then (data => getFiles(data.path, parentPath))
     } catch(e) {console.warn("Error: ", e.message)}
 }
-
-// async function download(targetPath) {
-//     console.log("targetPath", targetPath);
-//     try {
-//         await fetch(url+"download/?path="+targetPath, {
-//             method: "get",
-//         })
-//         .then (response => response.json())
-//         .then (data => console.log(data))
-//         // .then (data => getFiles(parentPath, levelUpPath))
-//         .then(console.log(3))
-//     } catch(e) {console.warn("Error: ", e.message)}
-// }

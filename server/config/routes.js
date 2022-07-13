@@ -3,7 +3,7 @@
 //                                           запросы
 // **********************************************************************************
 
-const controller = require("./../app/controllers/controller"); // это объект с методами, ке будем вызывать здесь
+const controller = require("./../app/controllers/controller");
 module.exports = (app) => {
     app.get("/getFiles", controller.getFiles);
     app.get("/download", controller.download);

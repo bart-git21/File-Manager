@@ -1,4 +1,5 @@
 
+@import url(table.css);
 
 *,
 *::before,
@@ -25,7 +26,7 @@ main {
     border-radius: 10px;
     margin: 20px;
     padding: 20px;
-    width: 30vw;
+    width: 100%;
 }
 
 .buttons-wrapper {
@@ -45,7 +46,7 @@ main {
 .fileManager__header {
     margin-bottom: 40px;
 }
-.fileManager__content span {
+.fileManager__table span {
     font-size: 150%;
 }
 .fileManager__text-underline {
@@ -92,18 +93,13 @@ main {
 
 /* ===================================== each item in the file manager ===========*/
 
-.fileManager__content {
+.fileManager__table {
     box-shadow: inset 2px 2px 3px white,
         2px 2px 3px black;
     border-radius: 10px;
 }
 .fileManager__item {
-    margin: 0 auto;
-    padding: 0 10px;
-    display: flex;
-    justify-content: space-between;
     position: relative;
-    height: 60px;
     transform: rotateX(90deg);
     animation: rotateX-90 .3s linear forwards;
     animation-delay: calc(0.05s * var(--i));
@@ -124,10 +120,16 @@ main {
 .fileManager__item:hover {
     cursor: pointer;
     background-color: antiquewhite;
-    font-weight: 600;
+    color: red;
 }
 
+.fileManager__item__nameWrapper {
+    display: flex;
+    justify-content: space-between;
+    height: 60px;
+}
 .fileManager__item__name {
+    padding-left: 50px;
     display: inline-flex;
     align-items: center;
     margin: 0;
